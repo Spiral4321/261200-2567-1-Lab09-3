@@ -1,0 +1,19 @@
+public class DocFileHandler implements Handler {
+    private Handler nextHandler;
+
+    @Override
+    public void setNextHandler(Handler nextHandler) {
+        this.nextHandler = nextHandler;
+    }
+
+    @Override
+    public void process(File file) {
+        if (file.getFileType().equalsIgnoreCase("doc")) {
+            System.out.println("Processing doc file: " + file.getFileName());
+        } else if (nextHandler != null) {
+            nextHandler.process(file);
+        } else {
+            System.out.println("File type not supported: " + file.getFileName());
+        }
+    }
+}
